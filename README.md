@@ -8,9 +8,9 @@ Watch a Gmail inbox for important new messages and send an SMS alert to the conf
 
 ## Architecture
 
-Gmail -> Netlify scheduled function -> importance filter -> SMS provider -> phone
+Gmail -> Netlify scheduled function -> importance filter -> WoWSQL -> SMS provider -> phone
 
-The first implementation uses Gmail's API and Twilio-compatible SMS credentials. Secrets are supplied through deployment environment variables and are never committed to this repository.
+The implementation uses Gmail's API, WoWSQL, and Twilio-compatible SMS credentials. Secrets are supplied through deployment environment variables and are never committed to this repository.
 
 ## Important email categories
 
@@ -21,6 +21,7 @@ The first implementation uses Gmail's API and Twilio-compatible SMS credentials.
 ## Required environment variables
 
 ```text
+WOWSQL_DATABASE_URL=
 GMAIL_CLIENT_ID=
 GMAIL_CLIENT_SECRET=
 GMAIL_REFRESH_TOKEN=
@@ -32,6 +33,8 @@ SMS_TO_NUMBER=
 
 ## Deployment
 
-Designed for Netlify Functions. Connect this repository to Netlify, configure the environment variables there, and deploy.
+Designed for Netlify Functions. This repository is connected to Netlify and production secrets are configured as environment variables.
+
+Deployment refresh: 2026-09-03
 
 Powered by tivalsdeveloper
