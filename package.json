@@ -1,0 +1,11 @@
+{
+  "name": "tivals-email-sms-alerts",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gmail to SMS important-email alerts for tivalsdeveloper",
+  "type": "module",
+  "dependencies": {
+    "googleapis": "^144.0.0",
+    "twilio": "^5.4.0"
+  }
+}
