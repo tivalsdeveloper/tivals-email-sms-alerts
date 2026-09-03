@@ -26,13 +26,15 @@ function classify(text, rules) {
 }
 
 export default async () => {
-  const db = new Pool({
-    connectionString: required("WOWSQL_DATABASE_URL"),
-    max: 1,
-    ssl: process.env.WOWSQL_SSL === "false" ? false : { rejectUnauthorized: false }
-  });
+  let db;
 
   try {
+    db = new Pool({
+      connectionString: required("WOWSQL_DATABASE_URL"),
+      max: 1,
+      ssl: process.env.WOWSQL_SSL === "false" ? false : { rejectUnauthorized: false }
+    });
+
     const oauth2 = new google.auth.OAuth2(required("GMAIL_CLIENT_ID"), required("GMAIL_CLIENT_SECRET"));
     oauth2.setCredentials({ refresh_token: required("GMAIL_REFRESH_TOKEN") });
     const gmail = google.gmail({ version: "v1", auth: oauth2 });
@@ -112,6 +114,6 @@ export default async () => {
     console.error("email-alerts failed", error);
     return new Response("Email alert function failed", { status: 500 });
   } finally {
-    await db.end().catch(() => {});
+    if (db) await db.end().catch(() => {});
   }
 };
